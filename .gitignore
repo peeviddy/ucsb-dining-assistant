@@ -103,13 +103,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# API Keys
-secrets.py
-
 # Google
 .gcloudignore
 firebase-auth.json
 
-# random shit
-aux.py
-handleusers.py
+# API Keys
+secrets.py
