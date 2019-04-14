@@ -5,7 +5,32 @@ from firebase_admin.firestore import firestore
 def manage_allergies(req_body, res_body):
     db = init_firebase_app('firebase-auth.json')
     current_user_id = req_body.get('originalDetectIntentRequest').get('payload').get('user').get('userId')
-    res_body['fulfillmentText'] = 'managing user allergies'
+
+    user_ref = db.collection('users').document(current_user_id)
+    if user_ref.get().exists:
+        user_data = user_ref.get().to_dict() # get snapshot
+        try:
+            current_user_allergies = user_data['allergies']
+        except KeyError:
+            current_user_allergies = []
+
+    message_allergy_items = req_body.get('queryResult').get('parameters')['user-allergy-items']
+
+    final_user_allergies = list(set(current_user_allergies) ^ set(message_allergy_items)) # symmetric difference
+    deleted_allergies = list(set(current_user_allergies) & set(message_allergy_items)) # set intersection
+
+    if len(final_user_allergies) > 0:
+        user_ref.set({'allergies': final_user_allergies}, merge=True)
+        final_user_allergies_str = ", ".join(str(allergy) for allergy in final_user_allergies)
+        dialog_response = "Okay, I'll remember that you're allergic to " + final_user_allergies_str
+        if len(deleted_allergies) > 0:
+            deleted_allergies_str = ", ".join(str(allergy) for allergy in deleted_allergies)
+            dialog_response += ", but not to " + deleted_allergies_str
+    else:
+        user_ref.update({'allergies': firestore.DELETE_FIELD})
+        dialog_response = "Okay, I'll remember you aren't allergic to anything"
+
+    res_body['fulfillmentText'] = dialog_response
 
 def manage_food_prefs(req_body, res_body):
     db = init_firebase_app('firebase-auth.json')
@@ -90,7 +115,7 @@ def read_data(req_body, res_body):
     user_ref = db.collection('users').document(current_user_id)
     if user_ref.get().exists:
         user_data = user_ref.get().to_dict() # dict snapshot of current user document
-        dialog_response = 'I can do that! '
+        dialog_response = "Here's what I remember about you - "
         for key, value in user_data.items():
             print(str(key) + ': ' + str(value) + ', ')
             dialog_response += ''.join(str(key) + ' is ' + str(value) + ', ')
