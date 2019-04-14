@@ -27,7 +27,8 @@ intent_map = {
 
     'Manage User Name': user_fields.manage_name,
     'Manage User Allergies': user_fields.manage_allergies,
-    'Manage User Preferences': user_fields.manage_prefs,
+    'Manage User Likes': user_fields.manage_food_prefs,
+    'Manage User Dislikes': user_fields.manage_food_prefs,
     'Manage User Philosophy': user_fields.manage_philosophy,
     'Read User Data': user_fields.read_data,
 
