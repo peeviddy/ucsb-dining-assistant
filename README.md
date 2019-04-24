@@ -1,8 +1,7 @@
 # UCSB Dining Assistant (alpha)
-what if you could just ask your phone/iot thing where to eat and didn't have to compare the menus for 15 minutes (or is that just me???)
-- if you're better at dialogflow and google cloud stuff please contact me
+What if you could ask Alexa/Siri/Google Assistant where to eat and didn't have to compare the menus for 15 minutes? The goal of this application is just that!
 
-how i got everything working
+How I got everything working:
 1. started with clean ubuntu 18.04 bionic
 2. installed python 3.7, pip, virtualenv, virtualenvwrapper
 3. ```mkvirtualenv -a $(pwd) <env_name> -p python3.7``` (the cloud function environment im using is Flask on Python 3.7)
@@ -15,3 +14,4 @@ if you want to reactivate the environment you can ```workon <env_name>```
 # DialogFlow Intent Diagram (WIP)
 ![](https://docs.google.com/drawings/d/e/2PACX-1vTviOrDJjXIpIJMNTu0EwzUuZTDcktKyzeMU3uwPekKSnpcMCXgnUmxq3ATpGJOW6YO0jJC3eMRWIah/pub?w=1440&h=1080)
 
+please let me know if you think this could be done better i'm just winging it
