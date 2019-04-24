@@ -12,3 +12,5 @@ how i got everything working
 when you're done working you can ```deactivate```
 if you want to reactivate the environment you can ```workon <env_name>```
 
+![DialogFlow Intent Diagram (WIP)](https://docs.google.com/drawings/d/e/2PACX-1vTviOrDJjXIpIJMNTu0EwzUuZTDcktKyzeMU3uwPekKSnpcMCXgnUmxq3ATpGJOW6YO0jJC3eMRWIah/pub?w=1440&h=1080)
+
